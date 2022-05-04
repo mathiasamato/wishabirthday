@@ -69,14 +69,14 @@ aside h2{
     text-align: center;
 }
 
-#smallSearchForm select{
+#smallSearchForm div select{
     font-size: 15px;
     width: 250px;
     height: 30px;
     margin: 15px;
 }
 
-#smallSearchForm input{
+#smallSearchForm form input{
     font-size: 15px;
     width: 250px;
     height: 30px;
@@ -125,10 +125,7 @@ aside h2{
     transition: 0.25s;
     display: flex;
     flex-direction: row;
-    margin: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 5px;
+    margin-left: -20px;
 }
 
 #user:hover{

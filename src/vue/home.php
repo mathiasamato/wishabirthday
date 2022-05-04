@@ -4,40 +4,19 @@
         <aside>
             <h2>bon anniversaire !</h2>
             <div id="smallSearchForm">
+            <form method="POST" action="index.php?uc=home">
                 <div id="smallSearchFormNoButton">
-                    <input type="text" />
-                    <select>
-                        <option>Français</option>
-                        <option>Anglais</option>
-                    </select>
+                        <input type="text" name="searchBar" value="<?= $_POST["searchBar"] ?>" />
+                        <select name="languageSelect">
+                            <option <?php if($_POST["languageSelect"]==1) echo 'selected="selected"'; ?> name="1" value="1">Français</option>
+                            <option <?php if($_POST["languageSelect"]==2) echo 'selected="selected"'; ?> name="2" value="2">Anglais</option>
+                        </select>
                 </div>
                 <input style="height: 92px;" id="sendSearchButton" type="submit" value="Rechercher"></button>
+            </form>
             </div>
             <div id="users">
-                <div id="user">
-                    <img id="profile_picture" src="assets/medias/pfp/image.jpg" alt="image de profil" />
-                    <p>Utilisateur</p>
-                </div>
-                <div id="user">
-                    <img id="profile_picture" src="assets/medias/pfp/image.jpg" alt="image de profil" />
-                    <p>Utilisateur</p>
-                </div>
-                <div id="user">
-                    <img id="profile_picture" src="assets/medias/pfp/image.jpg" alt="image de profil" />
-                    <p>Utilisateur</p>
-                </div>
-                <div id="user">
-                    <img id="profile_picture" src="assets/medias/pfp/image.jpg" alt="image de profil" />
-                    <p>Utilisateur</p>
-                </div>
-                <div id="user">
-                    <img id="profile_picture" src="assets/medias/pfp/image.jpg" alt="image de profil" />
-                    <p>Utilisateur</p>
-                </div>
-                <div id="user">
-                    <img id="profile_picture" src="assets/medias/pfp/image.jpg" alt="image de profil" />
-                    <p>Utilisateur</p>
-                </div>
+                <?= DisplayUsersWithBirthdayToday(); ?>
             </div>
         </aside>
         <div id="homeColumn">

@@ -74,6 +74,8 @@ switch($uc){
 
         unset($_SESSION['error']);
 
+        $_SESSION["userInfos"] = GetUserById($_GET['Id']);
+
         require 'vue/userProfile.php';
 
         break;

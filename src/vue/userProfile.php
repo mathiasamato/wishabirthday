@@ -1,7 +1,7 @@
 <title>Profile | WishABirthday</title>
 <section id="profile">
-    <p id="profileName">Utilisateur</p>
-    <img id="profile_picture" src="assets/medias/pfp/image.jpg" alt="image de profil"/>
+    <p id="profileName"><?= $_SESSION["userInfos"]['Firstname'] . ' ' . $_SESSION["userInfos"]['Lastname'] ?></p>
+    <img id="profile_picture" src="assets/medias/pfp/<?= $_SESSION["userInfos"]['Photo'] ?>" alt="image de profil"/>
     <article>
         <div id="buttons">
             <button onclick='readMessages.setAttribute("hidden", ""); sendMessages.removeAttribute("hidden");'>Lui envoyer un message</button>
@@ -24,6 +24,7 @@
                         <p>0</p>
                     </div>
                     <div id="comments">
+                        <p> > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non metus eget lectus volutpat hendrerit. Suspendisse vitae justo vel velit suscipit porttitor et non ligula</p>
                         <p> > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non metus eget lectus volutpat hendrerit. Suspendisse vitae justo vel velit suscipit porttitor et non ligula</p>
                         <textarea></textarea>
                         <button id="sendCommentButton">Envoyer</button>

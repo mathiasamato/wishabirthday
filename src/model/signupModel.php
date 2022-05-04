@@ -21,7 +21,7 @@ try {
     $ps->bindParam(':FIRSTNAME', $_POST['Firstname'], PDO::PARAM_STR); //Bind all the parameters, in this case the user's informations
     $ps->bindParam(':LASTNAME', $_POST['Lastname'], PDO::PARAM_STR);
     $ps->bindParam(':EMAIL', $_POST['Email'], PDO::PARAM_STR);
-    $ps->bindParam(':DATEBIRTH', $_POST['DoB']);
+    $ps->bindParam(':DATEBIRTH', $DoBNoYear); 
     $ps->bindParam(':PWD', $pwdsha1, PDO::PARAM_STR);
     $ps->bindParam(':LANGUAGE', $_POST['Language']);
     $ps->bindParam(':CODE', $_SESSION['ActivationCode']);
