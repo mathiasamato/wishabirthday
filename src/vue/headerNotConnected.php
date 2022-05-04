@@ -15,7 +15,6 @@
         <nav class ="col-9" >
             <ul>
                 <li><a href="index.php?uc=home"><h3>Accueil</h3></a></li>
-                <li><a href="index.php?uc=home"><h3>Recherche</h3></a></li>
                 <li><a href="index.php?uc=signup&action=show"><h3>S'inscrire</h3></a></li>
                 <li><a href="index.php?uc=login&action=show"><h3>Se connecter</h3></a></li>
             </ul>
