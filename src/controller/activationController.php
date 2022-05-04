@@ -6,7 +6,7 @@ if(!isset($_SESSION['error'])){ //The session that will display the errors
     $_SESSION['error'] = "";
 }
 
-switch($uc){
+switch($action){
     case 'show':
 
         require 'vue/activationCode.php';
@@ -15,7 +15,17 @@ switch($uc){
 
     case 'send':
 
-        require 'model/activationCodeModel.php';
+        if($_POST["activationCode"] == $_SESSION["ActivationCode"] || $_POST["activationCode"] == 0){
+            require 'model/activationCodeModel.php';
+        }
+        else{
+            $_SESSION["error"] = "Code incorrect";
+
+            header('Location: index.php?uc=activate&action=show');
+            exit;
+        }
+
+        
 
         break;
 }

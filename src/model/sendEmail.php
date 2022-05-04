@@ -36,7 +36,7 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
 
     $mail->Subject = 'Email de confirmation';
-    $mail->Body    = "<a href='http://localhost/wishabirthday/src/index.php?uc=activate&action=show'>Activer</a><br><p>" . $_SESSION['ActivationCode'] . "</p>";
+    $mail->Body    = "<a href='http://localhost/wishabirthday/src/index.php?uc=activate&action=show&email=" . $_POST['Email'] . "'>Activer</a><br><p>" . $_SESSION['ActivationCode'] . "</p>";
     $mail->AltBody = "";
 
     header('Location: index.php?uc=home'); //Redirect to home page

@@ -5,8 +5,6 @@ error_reporting(E_ALL);
 
 try {
 
-    $email = filter_input(INPUT_GET, "email");
-
     static $ps = null;
     $sql = "UPDATE `Users` SET `ActivationCode`=0 WHERE `ActivationCode`=:CODE"; //Activate the user's account
 
@@ -15,21 +13,12 @@ try {
     }
     $answer = false;
 
-    $ps->bindParam(':CODE', $_SESSION["activationCode"], PDO::PARAM_STR);
+    $ps->bindParam(':CODE', $_POST["activationCode"], PDO::PARAM_STR);
 
     if ($ps->execute()){ //Execute the prepare statement
 
-        echo 'Message has been sent';
-
         header('Location: index.php?uc=home');
         exit;
-    }
-    else{
-        
-        $_SESSION['error'] = "Code incorrect";
-
-        header("Location: index.php?uc=activate&action=show");
-        exit();
     }
 
 
