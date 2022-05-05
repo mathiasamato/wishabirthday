@@ -9,7 +9,7 @@ try {
     $sql = "SELECT * FROM `Users` WHERE `Email`=:EMAIL AND `Password`=:PWD";
 
     if ($ps == null) { //if the ps variable is null, it means that the prepare statement has not been set yet
-        $ps = db_connect()->prepare($sql); //prepare the sql query
+        $ps = dbConnect()->prepare($sql); //prepare the sql query
     }
     $answer = false;
 

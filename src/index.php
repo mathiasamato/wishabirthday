@@ -11,7 +11,7 @@ if(!isset($_COOKIE['connectedUserId']) && !isset($_SESSION['connectedUserId'])){
 
     require 'vue/headerNotConnected.php';
 
-    if($uc != "signup"){
+    if($uc != "signup" && $uc != "activate"){
         $uc = "login";
         $action = "show";
     }
@@ -39,6 +39,11 @@ switch($uc){
     case 'home': //Home page
 
         unset($_SESSION['error']); //Delete the session so if the user leaves the page login or signup while an error is displayed, it won't show up again when the user returns to one of these pages
+
+        if(!isset($_POST["languageSelect"]) && !isset($_POST["searchBar"])){
+            $_POST["languageSelect"] = 1;
+            $_POST["searchBar"] = "";
+        }
 
         require 'vue/home.php';
         
@@ -76,7 +81,23 @@ switch($uc){
 
         $_SESSION["userInfos"] = GetUserById($_GET['Id']);
 
-        require 'vue/userProfile.php';
+        if($_GET['Id'] == $_SESSION['connectedUserId']){
+            
+            header("Location: index.php?uc=profile&Id=" . $_GET['Id']);
+            exit();
+
+        }
+        else{
+            require 'vue/userProfile.php';
+        }
+
+        
+
+        break;
+
+    case 'message':
+
+        require 'controller/messageController.php';
 
         break;
     

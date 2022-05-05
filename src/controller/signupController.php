@@ -34,7 +34,10 @@ switch($action){
 
     case 'send': //Verify the data and then send it to the database
 
+        unset($_SESSION['error']);
+
         if($_POST['Password'] != $_POST['ConfirmPassword']){ //If the password and the confirmation password are differents
+            var_dump("test1");
             $_SESSION['error'] = "Les mots de passe ne correspondent pas.";
         }
         else if(strlen($_POST['Password']) < 6){ //If the length of the password is inferior to 6
@@ -43,8 +46,7 @@ switch($action){
 
         $_SESSION['ActivationCode'] = rand(1, 999999);
 
-        if($_SESSION['error'] == ""){ //If there's no error
-
+        if(!isset($_SESSION['error'])){ //If there's no error
             require 'model/signupModel.php';
         }
         else{ //Otherwise, send the user back to the form with the error displaying
@@ -54,7 +56,10 @@ switch($action){
             $_SESSION['userInfos']['Email'] = $_POST['Email'];
             $_SESSION['userInfos']['DoB'] = $_POST['DoB'];
 
-            //header('Location: index.php?uc=signup&action=show');
+            header('Location: index.php?uc=signup&action=show');
+
+            var_dump($_POST['Password']);
+            var_dump($_POST['ConfirmPassword']);
             exit();
         }
 

@@ -10,7 +10,7 @@ try {
     $sql .= 'VALUES(:LASTNAME, :FIRSTNAME, :EMAIL, :DATEBIRTH, :PWD, :LANGUAGE, :CODE);';
 
     if ($ps == null) { //if the ps variable is null, it means that the prepare statement has not been set yet
-        $ps = db_connect()->prepare($sql); //prepare the sql query
+        $ps = dbConnect()->prepare($sql); //prepare the sql query
     }
     $answer = false;
 
@@ -21,7 +21,7 @@ try {
     $ps->bindParam(':FIRSTNAME', $_POST['Firstname'], PDO::PARAM_STR); //Bind all the parameters, in this case the user's informations
     $ps->bindParam(':LASTNAME', $_POST['Lastname'], PDO::PARAM_STR);
     $ps->bindParam(':EMAIL', $_POST['Email'], PDO::PARAM_STR);
-    $ps->bindParam(':DATEBIRTH', $DoBNoYear); 
+    $ps->bindParam(':DATEBIRTH', $_POST['DoB']); 
     $ps->bindParam(':PWD', $pwdsha1, PDO::PARAM_STR);
     $ps->bindParam(':LANGUAGE', $_POST['Language']);
     $ps->bindParam(':CODE', $_SESSION['ActivationCode']);

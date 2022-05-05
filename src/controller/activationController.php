@@ -20,7 +20,7 @@ switch($action){
         }
         else{
             $_SESSION["error"] = "Code incorrect";
-
+            
             header('Location: index.php?uc=activate&action=show');
             exit;
         }

@@ -1,7 +1,7 @@
 <?php 
 require "constants.inc.php";
 
-function db_connect()
+function dbConnect()
 {
 
   static $connector = null;
