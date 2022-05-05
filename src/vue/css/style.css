@@ -26,6 +26,11 @@ header {
     background-color: #000000;
     color: #ffffff;
     padding: 15px;
+    border-radius: 5px;
+}
+
+div{
+    border-radius: 5px;
 }
 
 header h1{
@@ -61,6 +66,7 @@ aside{
     height: 1000px;
     margin-top: 20px;
     border: solid 2px black;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
 }
@@ -385,6 +391,7 @@ footer {
     font-size: 12px;
     padding: 15px;
     margin-top: auto;
+    border-radius: 5px;
 }
 
 /* Mobile */

@@ -44,7 +44,7 @@ switch($action){
             $_SESSION['error'] = "Le mot de passe doit faire au moins 6 caractères";
         }
 
-        $_SESSION['ActivationCode'] = rand(1, 999999);
+        $_SESSION['ActivationCode'] = rand(100000, 999999);
 
         if(!isset($_SESSION['error'])){ //If there's no error
             require 'model/signupModel.php';
@@ -62,15 +62,6 @@ switch($action){
             var_dump($_POST['ConfirmPassword']);
             exit();
         }
-
-        break;
-        
-    case 'showredirect':
-
-        $_SESSION['userInfos']['Email'] = $_POST['Email'];
-        
-        header('Location: index.php?uc=signup&action=show');
-        exit;
 
         break;
     
