@@ -14,6 +14,10 @@ switch($action){
         require 'model/messageTargetModel.php';
 
         break;
+
+    case "comment":
+
+        break;
 }
 
 ?>

@@ -1,4 +1,12 @@
 <?php 
+
+/*
+Author : Mathias Amato
+Date : 18.05.2022
+Name of the project : Wish A Birthday
+Description : Wish A Birthday is a social media aimed at wishing people happy birthday. You can choose whose to send the message or send the message to a random user having their birthday that same day.
+*/
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
