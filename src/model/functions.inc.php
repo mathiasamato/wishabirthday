@@ -208,6 +208,8 @@ function DisplayMessagesForUser($answer){
 
         $sender = GetUserById($answer[$i]['CreatedBy']); //Get the user that sent the message
 
+        $likesCount = GetLikesCountForMessage($answer[$i]['Id'])[0]['LikesCount'];
+
         $privateStr = "";
 
         if($answer[$i]['IsPrivate']){ //If the message is private, show a "(Privé)" before the message
@@ -219,20 +221,24 @@ function DisplayMessagesForUser($answer){
         $output .= '    <div>';
         $output .= '        <p>' . $privateStr . $answer[$i]['Text'] .'</p>';
         $output .= '        <div id="interaction">';
-        $output .= '            <img id="likeButton" src="assets/medias/like.png" alt="image du bouton like"/>';
-        $output .= '            <p>0</p>';
+        $output .= '            <form method="POST" action="index.php?uc=interaction&action=like&messageid=' . $answer[$i]['Id'] . '">';
+        $output .= '                <input type="submit" name="addLike" id="sendLike" /><img id="likeButton" src="assets/medias/like.png" alt="image du bouton like"/>';
+        $output .= '                <p>' . $likesCount . '</p>';
+        $output .= '            </form>';
         $output .= '        </div>';
         $output .= '        <div id="comments">';
-        $output .= '            <form method="POST" action="index.php?uc=sendComment">';
+        $output .= '            <form method="POST" action="index.php?uc=interaction&action=comment">';
         $output .= '                <p> > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non metus eget lectus volutpat hendrerit. Suspendisse vitae justo vel velit suscipit porttitor et non ligula</p>';
         $output .= '                <p> > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non metus eget lectus volutpat hendrerit. Suspendisse vitae justo vel velit suscipit porttitor et non ligula</p>';
         $output .= '                <textarea placeholder="Ajouter un commentaire" name="CommentTextArea"></textarea>';
-        $output .= '                <input type="submit" id="sendCommentButton">';
+        $output .= '                <input type="submit" name="sendCommentButton" id="sendCommentButton">';
         $output .= '            </form>';
         $output .= '        </div>';
         $output .= '    </div>';
         $output .= '</div>';
+
     }
+
     return $output;
 }
 
@@ -253,23 +259,133 @@ function GetAndDisplay10LastPublicMessagesSent(){
 
         $output = '';
 
+        $j = 0;
+
         for($i = 0; $i < count($answer); $i++){ //Generate the HTML to display
 
-            $sender = GetUserById($answer[$i]['CreatedBy']);
+            $sender = GetUserById($answer[$i]['CreatedBy']); //Get the infos of the user that sent the message
 
+            $likesCount = GetLikesCountForMessage($answer[$i]['Id'])[0]['LikesCount']; //Get the number of likes of that message
+
+            if($j < count($answer)){
+
+                $comments = GetCommentsOfMessage($answer[$i]['Id']);
+            }
+            else{
+                $j = 0;
+            }
+            
             $output .= '<div id="message">';
             $output .= '    <img id="profile_picture" src="assets/medias/pfp/' . $sender['Photo'] . '" alt="image de profil" />';
             $output .= '    <div>';
             $output .= '        <p style="height: 6vh; margin-top: 25px; font-size: 25px;">' . $answer[$i]['Text'] . '</p>';
             $output .= '        <div id="interaction">';
-            $output .= '            <img id="likeButton" src="assets/medias/like.png" alt="image du bouton like" />';
-            $output .= '            <p>0</p>';
+            $output .= '            <form method="POST" action="index.php?uc=interaction&action=like&messageid=' . $answer[$i]['Id'] . '">';
+            $output .= '                <input type="submit" name="addLike" id="sendLike" /><img id="likeButton" src="assets/medias/like.png" alt="image du bouton like"/>';
+            $output .= '                <p>' . $likesCount . '</p>';
+            $output .= '            </form>';
             $output .= '        </div>';
-            $output .= '        <p style="height: 6vh; font-size: 20px; color: gray;">' . $answer[$i]['CreatedOn'] . '</p>';
+            $output .= '        <div id="comments">';
+            $output .= '            <form method="POST" action="index.php?uc=interaction&action=comment&messageid=' . $answer[$i]['Id'] . '">';
+            $output .=                  $comments;
+            $output .= '                <textarea placeholder="Ajouter un commentaire" name="CommentTextArea"></textarea>';
+            $output .= '                <input type="submit" name="sendCommentButton" id="sendCommentButton">';
+            $output .= '            </form>';
+            $output .= '        <p style="font-size: 20px; color: gray; position: relative; left: 160px; top: 10px;">' . $answer[$i]['CreatedOn'] . '</p><p style="font-size: 20px; position: relative; bottom: 40px;">' . $sender['Firstname'] . ' ' . $sender['Lastname'] .'</p>';
+            $output .= '        </div>';
             $output .= '    </div>';
             $output .= '</div>';
+
         }
         
+        
+        return $output;
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+function GetLikesCountForMessage($messageId){
+    try {
+
+        static $ps = null;
+        $sql = 'SELECT COUNT(*) AS LikesCount FROM `Likes` WHERE `MessageId`=:MESSAGEID'; //Count the number of likes for a message
+
+        if ($ps == null) {
+            $ps = dbConnect()->prepare($sql);
+        }
+        $answer = false;
+
+
+        $ps->bindParam(':MESSAGEID', $messageId, PDO::PARAM_INT);
+
+        if ($ps->execute()) {
+            $answer = $ps->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return $answer;
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+function CheckIfUserHasNotLikedTheMessage(){
+    try {
+
+        static $ps = null;
+        $sql = 'SELECT * FROM `Likes` WHERE `LikedBy`=:LIKEDBY AND `MessageId`=:MESSAGEID';
+
+        if ($ps == null) {
+            $ps = dbConnect()->prepare($sql);
+        }
+        $answer = false;
+
+        $ps->bindParam(':LIKEDBY', $_SESSION['connectedUserId'], PDO::PARAM_INT);
+        $ps->bindParam(':MESSAGEID', $_GET['messageid'], PDO::PARAM_INT);
+
+        if ($ps->execute()) {
+            $answer = $ps->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return $answer;
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+function GetCommentsOfMessage($messageId){
+    try {
+
+        static $ps = null;
+        $sql = 'SELECT * FROM `Comments` WHERE `MessageId`=:MESSAGEID';
+
+        if ($ps == null) {
+            $ps = dbConnect()->prepare($sql);
+        }
+        $answer = false;
+
+        $ps->bindParam(':MESSAGEID', $messageId, PDO::PARAM_INT);
+
+        if ($ps->execute()) {
+            $answer = $ps->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        $output = '';
+
+        if($answer){
+
+            for($i = 0; $i < count($answer); $i++){ //Generate the HTML to display
+
+                $sender = GetUserById($answer[$i]['CreatedBy']); //Get the infos of the user that sent the message
+
+                $output .= '<p><b>' . $sender["Firstname"] . ' ' . $sender["Lastname"] .'</b> > ' . $answer[$i]["Text"] .  '</p>';
+
+            }
+        }
+
         
         return $output;
 

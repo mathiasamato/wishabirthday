@@ -108,6 +108,12 @@ switch($uc){
         require 'controller/messageController.php';
 
         break;
+
+    case 'interaction':
+
+        require 'controller/interactionController.php';
+
+        break;
     
     case 'disconnect': //When the user wants to disconnect
 
