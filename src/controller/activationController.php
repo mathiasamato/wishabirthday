@@ -15,11 +15,13 @@ switch($action){
 
     case 'send':
 
+        unset($_SESSION['error']);
+
         if($_POST["activationCode"] == $_SESSION["ActivationCode"] || $_POST["activationCode"] == 0){
             require 'model/activationCodeModel.php';
         }
         else{
-            $_SESSION["error"] = "Code incorrect";
+            $_SESSION['error'] = "Code incorrect";
             
             header('Location: index.php?uc=activate&action=show');
             exit;

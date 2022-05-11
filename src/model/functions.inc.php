@@ -1,11 +1,10 @@
 <?php
 
-function GetUsersWithBirthdayToday($filterLanguageId)
-{
+function GetUsersWithBirthdayToday($filterLanguageId){
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND `LanguageId`=:LANGUAGEID '; //Get users that celebrate their birthday and that have the language filter matching their language
+        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND `LanguageId`=:LANGUAGEID LIMIT ' . $_SESSION['messageLimit']; //Get users that celebrate their birthday and that have the language filter matching their language
 
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);
@@ -25,12 +24,11 @@ function GetUsersWithBirthdayToday($filterLanguageId)
     }
 }
 
-function GetUsersWithBirthdayTodayWithFilterName($filterName, $filterLanguageId)
-{
+function GetUsersWithBirthdayTodayWithFilterName($filterName, $filterLanguageId){
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND (`Lastname` SOUNDS LIKE :FILTERTEXT OR `Firstname` SOUNDS LIKE :FILTERTEXT) AND `LanguageId`=:LANGUAGEID';
+        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND (`Lastname` SOUNDS LIKE :FILTERTEXT OR `Firstname` SOUNDS LIKE :FILTERTEXT) AND `LanguageId`=:LANGUAGEID LIMIT ' . $_SESSION['messageLimit'];
         //Get users that celebrate their birthday, that have the language filter matching their language and the name in the search bar matching their name
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);
@@ -83,10 +81,15 @@ function DisplayUsersWithBirthdayToday(){
 
     
         for($i = 0; $i < count($users); $i++){ //Generate the HTML to display
+
             $output .= '<a style="text-decoration: none; color: black;" href="index.php?uc=userProfile&action=show&Id=' . $users[$i]['Id'] . '"><div id="user">';
-            $output .= '   <img id="profile_picture" src="assets/medias/pfp/' . $users[$i]['Photo'] . '" alt="image de profil" />';
+            $output .= '   <img id="profile_picture" src="assets/medias/pfp/' . $users[$i]['Picture'] . '" alt="image de profil" />';
             $output .= '   <p>' . $users[$i]['Firstname'] . " " . $users[$i]['Lastname'] . '</p>';
             $output .= '</div></a>';
+
+            if($i == $_SESSION['messageLimit']-1){;
+                $output .= '<a href="index.php?uc=interaction&action=loadmore" style="text-align: center; text-decoration: none; color: gray;"><p>Charger plus</p></a>';
+            }
         }
     }
     else{ //Error message if for some reason, the language filter fails
@@ -97,8 +100,7 @@ function DisplayUsersWithBirthdayToday(){
     return $output;
 }
 
-function GetUserById($id)
-{
+function GetUserById($id){
     try {
 
         static $ps = null;
@@ -150,10 +152,10 @@ function GetAllPublicReceivedMessagesForUserById($id){
         static $ps = null;
 
         if($_GET['uc'] == "profile"){ //If it's your own profile, show all your messages regardless of if they are private or public
-            $sql = 'SELECT * FROM `Messages` WHERE `CreatedFor`=:ID';
+            $sql = 'SELECT * FROM `Messages` WHERE `CreatedFor`=:ID LIMIT ' . $_SESSION['messageLimit'];
         }
         else{ //If it's someone else's profile, show all their public messages
-            $sql = 'SELECT * FROM `Messages` WHERE `CreatedFor`=:ID AND `isPrivate`=0';
+            $sql = 'SELECT * FROM `Messages` WHERE `CreatedFor`=:ID AND `isPrivate`=0 LIMIT ' . $_SESSION['messageLimit'];
         }
         
 
@@ -180,7 +182,7 @@ function GetAllSentMessagesFromUserById($id){ //Show all messages sent by the us
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Messages` WHERE `CreatedBy`=:ID';
+        $sql = 'SELECT * FROM `Messages` WHERE `CreatedBy`=:ID ORDER BY `CreatedOn` DESC LIMIT ' . $_SESSION['messageLimit'];
 
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);
@@ -212,30 +214,44 @@ function DisplayMessagesForUser($answer){
 
         $privateStr = "";
 
+        $j = 0;
+
+        if($j < count($answer)){
+
+            $comments = GetCommentsOfMessage($answer[$i]['Id']);
+        }
+        else{
+            $j = 0;
+        }
+
         if($answer[$i]['IsPrivate']){ //If the message is private, show a "(Privé)" before the message
             $privateStr = "<i>(Privé) </i>";
         }
 
         $output .= '<div id="message">'; //Generate the HTML to display
-        $output .= '    <img id="profile_picture" src="assets/medias/pfp/' . $sender['Photo'] .  '" alt="image de profil"/>';
+        $output .= '    <a href="index.php?uc=userProfile&action=show&Id=' . $sender['Id'] . '"><img id="profile_picture" src="assets/medias/pfp/' . $sender['Picture'] .  '" alt="image de profil"/></a>';
         $output .= '    <div>';
         $output .= '        <p>' . $privateStr . $answer[$i]['Text'] .'</p>';
         $output .= '        <div id="interaction">';
         $output .= '            <form method="POST" action="index.php?uc=interaction&action=like&messageid=' . $answer[$i]['Id'] . '">';
         $output .= '                <input type="submit" name="addLike" id="sendLike" /><img id="likeButton" src="assets/medias/like.png" alt="image du bouton like"/>';
-        $output .= '                <p>' . $likesCount . '</p>';
+        $output .= '                <p style="font-size: 15px;">' . $likesCount . '</p>';
         $output .= '            </form>';
         $output .= '        </div>';
         $output .= '        <div id="comments">';
-        $output .= '            <form method="POST" action="index.php?uc=interaction&action=comment">';
-        $output .= '                <p> > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non metus eget lectus volutpat hendrerit. Suspendisse vitae justo vel velit suscipit porttitor et non ligula</p>';
-        $output .= '                <p> > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non metus eget lectus volutpat hendrerit. Suspendisse vitae justo vel velit suscipit porttitor et non ligula</p>';
+        $output .= '            <form method="POST" action="index.php?uc=interaction&action=comment&messageid=' . $answer[$i]['Id'] . '">';
+        $output .=                  $comments;
         $output .= '                <textarea placeholder="Ajouter un commentaire" name="CommentTextArea"></textarea>';
         $output .= '                <input type="submit" name="sendCommentButton" id="sendCommentButton">';
         $output .= '            </form>';
+        $output .= '        <p style="font-size: 20px; color: gray; position: relative; left: 160px; top: 10px;">' . $answer[$i]['CreatedOn'] . '</p><p style="font-size: 20px; position: relative; bottom: 40px;">' . $sender['Firstname'] . ' ' . $sender['Lastname'] .'</p>';
         $output .= '        </div>';
         $output .= '    </div>';
         $output .= '</div>';
+
+        if($i == $_SESSION['messageLimit']-1){
+            $output .= '<a href="index.php?uc=interaction&action=loadmore" style="text-align: center; text-decoration: none; color: gray;"><p>Charger plus</p></a>';
+        }
 
     }
 
@@ -276,7 +292,7 @@ function GetAndDisplay10LastPublicMessagesSent(){
             }
             
             $output .= '<div id="message">';
-            $output .= '    <img id="profile_picture" src="assets/medias/pfp/' . $sender['Photo'] . '" alt="image de profil" />';
+            $output .= '    <a href="index.php?uc=userProfile&action=show&Id=' . $sender['Id'] . '"><img id="profile_picture" src="assets/medias/pfp/' . $sender['Picture'] . '" alt="image de profil" /></a>';
             $output .= '    <div>';
             $output .= '        <p style="height: 6vh; margin-top: 25px; font-size: 25px;">' . $answer[$i]['Text'] . '</p>';
             $output .= '        <div id="interaction">';
@@ -360,7 +376,7 @@ function GetCommentsOfMessage($messageId){
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Comments` WHERE `MessageId`=:MESSAGEID';
+        $sql = 'SELECT * FROM `Comments` WHERE `MessageId`=:MESSAGEID ORDER BY `CreatedOn` DESC';
 
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);

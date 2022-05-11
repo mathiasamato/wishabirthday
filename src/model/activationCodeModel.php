@@ -12,7 +12,7 @@ try {
     $ps->bindParam(':CODE', $_POST["activationCode"], PDO::PARAM_STR);
 
     if ($ps->execute()){ //Execute the prepare statement
-        unset($_SESSION['error']);
+
         header('Location: index.php?uc=home');
         exit;
     }

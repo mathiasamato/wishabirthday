@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+define("DAYS_UNTIL_COOKIE_EXPIRES", 30);
+
 try {
 
     static $ps = null;
@@ -25,25 +27,25 @@ try {
     if($answer){
 
         if($answer[0]["ActivationCode"] != 0){ //If the user is not yet verified, write an error message
-            $_SESSION['error'] = "Vous n'avez pas activé votre compte ! Veuillez regarder vos mails.";
+            $_SESSION['error'] = "Vous n'avez pas activé votre compte ! Veuillez vérifier vos mails.";
 
             header("Location: index.php?uc=login&action=show");
             exit();
         }
-
-        define("DAYS_UNTIL_COOKIE_EXPIRES", 30);
 
         if(isset($_POST['rememberMeCheckbox'])){ //If the user clicked on "remember me", create a cookie that lasts 30 days, otherwise it just creates a cookie
             setcookie("connectedUserId", $answer[0]["Id"], time() + (86400 * DAYS_UNTIL_COOKIE_EXPIRES), "/"); //86400 seconds is 1 day, it allows to put the real number of days without having to calculate
         }
         else{
             $_SESSION['connectedUserId'] = $answer[0]["Id"];
-        }        
+        }
 
         header("Location: index.php?uc=home");
         exit();
+
     }
     else{ //If no user was found, write an error message
+
         $_SESSION['error'] = "Votre email ou mot de passe est incorrect, veuillez réessayer.";
 
         header("Location: index.php?uc=login&action=show");

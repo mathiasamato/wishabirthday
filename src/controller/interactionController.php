@@ -19,6 +19,16 @@ switch($action){
         }
 
         break;
+
+    case "loadmore":
+
+        $_SESSION['loadmore'] = true;
+        $_SESSION['messageLimit'] += 5;
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+
+        break;
 }
 
 ?>

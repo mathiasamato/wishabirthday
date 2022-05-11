@@ -2,7 +2,8 @@
 <section>
    <div id="form" class="col-12">
        <p style="color: red; font-size: 25px;"><?= $_SESSION['error'] ?></p>
-        <form method="POST" action="index.php?uc=signup&action=send"><br>
+        <form method="POST" action="index.php?uc=signup&action=send" enctype="multipart/form-data"><br>
+            <input type="file" name="ProfilePicture" accept="image/png, image/jpeg, image/jpg, image/gif" style="color: black;"><br>
             <input type="text" name="Lastname" placeholder="Entrer un nom" value="<?= $_SESSION['userInfos']['Lastname'] ?>" required /><br>
             <input type="text" name="Firstname" placeholder="Entrer un prénom" value="<?= $_SESSION['userInfos']['Firstname'] ?>" required /><br>
             <input type="email" name="Email" placeholder="Entrer un email" value="<?= $_SESSION['userInfos']['Email'] ?>" required /><br>

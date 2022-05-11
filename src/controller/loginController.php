@@ -15,6 +15,8 @@ switch($action){
     case 'show':
 
         if(!isset($_SESSION['userInfos']['email'])){ //Allows to make a sticky form
+
+            unset($_SESSION['error']);
             $_SESSION['userInfos']['email'] = "";
         }
 
@@ -23,6 +25,8 @@ switch($action){
         break;
 
     case 'send':
+
+        unset($_SESSION['error']);
 
         $_SESSION['userInfos']['email'] = $_POST['Email'];
 

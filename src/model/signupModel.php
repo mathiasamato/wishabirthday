@@ -6,8 +6,8 @@ error_reporting(E_ALL);
 try {
 
     static $ps = null;
-    $sql = 'INSERT INTO `Users` (`Lastname`, `Firstname`, `Email`, `DoB`, `Password`, `LanguageId`, `ActivationCode`)';
-    $sql .= 'VALUES(:LASTNAME, :FIRSTNAME, :EMAIL, :DATEBIRTH, :PWD, :LANGUAGE, :CODE);';
+    $sql = 'INSERT INTO `Users` (`Lastname`, `Firstname`, `Email`, `DoB`, `Password`, `LanguageId`, `ActivationCode`, `Picture`)';
+    $sql .= 'VALUES(:LASTNAME, :FIRSTNAME, :EMAIL, :DATEBIRTH, :PWD, :LANGUAGE, :CODE, :PICTURE);';
 
     if ($ps == null) { //if the ps variable is null, it means that the prepare statement has not been set yet
         $ps = dbConnect()->prepare($sql); //prepare the sql query
@@ -25,6 +25,7 @@ try {
     $ps->bindParam(':PWD', $pwdsha1, PDO::PARAM_STR);
     $ps->bindParam(':LANGUAGE', $_POST['Language']);
     $ps->bindParam(':CODE', $_SESSION['ActivationCode']);
+    $ps->bindParam(':PICTURE', $_SESSION['FileNameWithRandomString']);
 
     if ($ps->execute()){ //Execute the prepare statement and send a validation email
         require 'sendEmail.php';

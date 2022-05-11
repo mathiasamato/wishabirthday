@@ -13,6 +13,18 @@ error_reporting(E_ALL);
 
 session_start();
 
+if(!isset($_SESSION['loadmore'])){ //The session that will display the errors
+    $_SESSION['loadmore'] = false;
+}
+
+if(!isset($_SESSION['messageLimit'])){ //The session that will display the errors
+    $_SESSION['messageLimit'] = 5;
+}
+
+if(!isset($_SESSION['error'])){ //The session that will display the errors
+    $_SESSION['error'] = "";
+}
+
 $uc = !isset($_GET['uc']) ? "home" : $_GET['uc']; //The thing to display to the user
 
 if(!isset($_COOKIE['connectedUserId']) && !isset($_SESSION['connectedUserId'])){ //If the user isn't connected
@@ -20,6 +32,7 @@ if(!isset($_COOKIE['connectedUserId']) && !isset($_SESSION['connectedUserId'])){
     require 'vue/headerNotConnected.php';
 
     if($uc != "signup" && $uc != "activate"){
+        
         $uc = "login";
         $action = "show";
     }
@@ -46,7 +59,14 @@ require 'model/functions.inc.php'; //All useful functions
 switch($uc){
     case 'home': //Home page
 
-        unset($_SESSION['error']); //Delete the session so if the user leaves the page login or signup while an error is displayed, it won't show up again when the user returns to one of these pages
+        //unset($_SESSION['error']); //Delete the session so if the user leaves the page login or signup while an error is displayed, it won't show up again when the user returns to one of these pages
+
+        if(!$_SESSION['loadmore']){
+            $_SESSION['messageLimit'] = 5;
+        }
+        else{
+            $_SESSION['loadmore'] = false;
+        }
 
         if(!isset($_POST["languageSelect"]) && !isset($_POST["searchBar"])){
             $_POST["languageSelect"] = 1;
@@ -77,7 +97,12 @@ switch($uc){
 
     case 'profile': //profile page
 
-        unset($_SESSION['error']);
+        if(!$_SESSION['loadmore']){
+            $_SESSION['messageLimit'] = 5;
+        }
+        else{
+            $_SESSION['loadmore'] = false;
+        }
 
         require 'vue/ownProfile.php';
 
@@ -85,7 +110,12 @@ switch($uc){
 
     case 'userProfile':
 
-        unset($_SESSION['error']);
+        if(!$_SESSION['loadmore']){
+            $_SESSION['messageLimit'] = 5;
+        }
+        else{
+            $_SESSION['loadmore'] = false;
+        }
 
         $_SESSION["userInfos"] = GetUserById($_GET['Id']);
 

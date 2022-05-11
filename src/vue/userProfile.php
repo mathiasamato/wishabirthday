@@ -1,7 +1,7 @@
 <title>Profile | WishABirthday</title>
 <section id="profile">
     <p id="profileName"><?= $_SESSION["userInfos"]['Firstname'] . ' ' . $_SESSION["userInfos"]['Lastname'] ?></p>
-    <img id="profile_picture" src="assets/medias/pfp/<?= $_SESSION["userInfos"]['Photo'] ?>" alt="image de profil" />
+    <img id="profile_picture" src="assets/medias/pfp/<?= $_SESSION["userInfos"]['Picture'] ?>" alt="image de profil" />
     <article>
         <div id="buttons">
             <button onclick='readMessages.setAttribute("hidden", ""); sendMessages.removeAttribute("hidden");'>Lui envoyer un message</button>
