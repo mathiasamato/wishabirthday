@@ -1,4 +1,4 @@
-<title>Profile | WishABirthday</title>
+<title><?= GetUserById($_GET['Id'])['Firstname'] . ' ' . GetUserById($_GET['Id'])['Lastname'] ?> | WishABirthday</title>
 <section id="profile">
     <p id="profileName"><?= $_SESSION["userInfos"]['Firstname'] . ' ' . $_SESSION["userInfos"]['Lastname'] ?></p>
     <img id="profile_picture" src="assets/medias/pfp/<?= $_SESSION["userInfos"]['Picture'] ?>" alt="image de profil" />

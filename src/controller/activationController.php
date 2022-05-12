@@ -2,7 +2,7 @@
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 
-if(!isset($_SESSION['error'])){ //The session that will display the errors
+if($_SESSION['error'] != ""){ //The session that will display the errors
     $_SESSION['error'] = "";
 }
 
@@ -15,13 +15,11 @@ switch($action){
 
     case 'send':
 
-        unset($_SESSION['error']);
-
         if($_POST["activationCode"] == $_SESSION["ActivationCode"] || $_POST["activationCode"] == 0){
             require 'model/activationCodeModel.php';
         }
         else{
-            $_SESSION['error'] = "Code incorrect";
+            $_SESSION['error']['message'] = "Code incorrect";
             
             header('Location: index.php?uc=activate&action=show');
             exit;

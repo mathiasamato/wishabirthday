@@ -1,4 +1,4 @@
-<title><?= $_SESSION['userInfos']['firstname'] . ' ' . $_SESSION['userInfos']['lastname']?> | WishABirthday</title>
+<title><?= $_SESSION['userInfos']['Firstname'] . ' ' . $_SESSION['userInfos']['Lastname']?> | WishABirthday</title>
 <section style="overflow: auto; max-height: 920px;">
    <div id="form" class="col-12">
        <p style="color: red; font-size: 25px;"><?= $_SESSION['error'] ?></p>

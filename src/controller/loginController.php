@@ -3,9 +3,9 @@ $action = filter_input(INPUT_GET, "action"); //What is the thing to do
 
 $action = !isset($_GET['action']) ? "show" : $_GET['action']; //The thing to display to the user
 
-if(!isset($_SESSION['error'])){
-    $_SESSION['error'] = ""; //The session that will display the errors
-}
+/*if($_SESSION['error'] != ""){ //The session that will display the errors
+    $_SESSION['error'] = "";
+}*/
 
 if(!isset($_SESSION['userInfos'])){
     $_SESSION['userInfos'] = [];
@@ -16,7 +16,6 @@ switch($action){
 
         if(!isset($_SESSION['userInfos']['email'])){ //Allows to make a sticky form
 
-            unset($_SESSION['error']);
             $_SESSION['userInfos']['email'] = "";
         }
 
@@ -25,8 +24,6 @@ switch($action){
         break;
 
     case 'send':
-
-        unset($_SESSION['error']);
 
         $_SESSION['userInfos']['email'] = $_POST['Email'];
 

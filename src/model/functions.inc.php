@@ -244,7 +244,7 @@ function DisplayMessagesForUser($answer){
         $output .= '                <textarea placeholder="Ajouter un commentaire" name="CommentTextArea"></textarea>';
         $output .= '                <input type="submit" name="sendCommentButton" id="sendCommentButton">';
         $output .= '            </form>';
-        $output .= '        <p style="font-size: 20px; color: gray; position: relative; left: 160px; top: 10px;">' . $answer[$i]['CreatedOn'] . '</p><p style="font-size: 20px; position: relative; bottom: 40px;">' . $sender['Firstname'] . ' ' . $sender['Lastname'] .'</p>';
+        $output .= '        <p style="font-size: 20px; color: gray; position: relative; left: 190px; top: 10px;">' . $answer[$i]['CreatedOn'] . '</p><p style="font-size: 20px; position: relative; bottom: 40px;">' . $sender['Firstname'] . ' ' . $sender['Lastname'] .'</p>';
         $output .= '        </div>';
         $output .= '    </div>';
         $output .= '</div>';
@@ -307,7 +307,7 @@ function GetAndDisplay10LastPublicMessagesSent(){
             $output .= '                <textarea placeholder="Ajouter un commentaire" name="CommentTextArea"></textarea>';
             $output .= '                <input type="submit" name="sendCommentButton" id="sendCommentButton">';
             $output .= '            </form>';
-            $output .= '        <p style="font-size: 20px; color: gray; position: relative; left: 160px; top: 10px;">' . $answer[$i]['CreatedOn'] . '</p><p style="font-size: 20px; position: relative; bottom: 40px;">' . $sender['Firstname'] . ' ' . $sender['Lastname'] .'</p>';
+            $output .= '        <p style="font-size: 20px; color: gray; position: relative; left: 190px; top: 10px;">' . $answer[$i]['CreatedOn'] . '</p><p style="font-size: 20px; position: relative; bottom: 40px;">' . $sender['Firstname'] . ' ' . $sender['Lastname'] .'</p>';
             $output .= '        </div>';
             $output .= '    </div>';
             $output .= '</div>';

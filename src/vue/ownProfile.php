@@ -1,8 +1,5 @@
-<title>Profile | WishABirthday</title>
+<title>Profil | WishABirthday</title>
 <section id="profile">
-    <!--<form method="POST" action="index.php?uc=profile&action=edit">
-        <input type="submit" value="Modifier les informations" name="edit_profile"/>
-    </form>-->
     <p id="profileName"><?= $_SESSION["userInfos"]['Firstname'] . ' ' . $_SESSION["userInfos"]['Lastname'] ?></p>
     <a href="index.php?uc=profile&action=edit"><img id="profile_picture" src="assets/medias/pfp/<?= $_SESSION["userInfos"]['Picture'] ?>" alt="image de profil"/></a>
     <article>

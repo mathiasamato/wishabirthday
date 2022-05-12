@@ -2,6 +2,10 @@
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 
+if($_SESSION['error'] != ""){ //The session that will display the errors
+    $_SESSION['error'] = "";
+}
+
 switch($action){
     case "comment":
 

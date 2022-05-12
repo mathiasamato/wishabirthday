@@ -9,8 +9,8 @@ if(!isset($_SESSION['userInfos'])){
     $_SESSION['userInfos'] = [];
 }
 
-if(!isset($_SESSION['error'])){
-    $_SESSION['error'] = ""; //The session that will display the errors
+if($_SESSION['error'] != ""){ //The session that will display the errors
+    $_SESSION['error'] = "";
 }
 
 if(!isset($_SESSION['connectedUserId'])){ //Checks if the user is connected
@@ -71,8 +71,6 @@ switch($action){
         break;
     
     case 'editconfirm':
-
-        $_SESSION['error'] = "";
 
         $pwdIsModified = false;
 

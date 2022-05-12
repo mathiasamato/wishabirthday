@@ -2,7 +2,7 @@
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 
-if(!isset($_SESSION['error'])){ //The session that will display the errors
+if($_SESSION['error'] != ""){ //The session that will display the errors
     $_SESSION['error'] = "";
 }
 
@@ -34,8 +34,6 @@ switch($action){
 
     case 'send': //Verify the data and then send it to the database
 
-        unset($_SESSION['error']);
-
         if($_POST['Password'] != $_POST['ConfirmPassword']){ //If the password and the confirmation password are differents
 
             $_SESSION['error'] = "Les mots de passe ne correspondent pas.";
@@ -47,9 +45,10 @@ switch($action){
 
         }
 
-        $_SESSION['ActivationCode'] = rand(100000, 999999);
-
         if($_SESSION['error'] == ""){ //If there's no error
+
+            $_SESSION['ActivationCode'] = rand(100000, 999999);
+
             require 'model/uploadMedia.php';
         }
         else{ //Otherwise, send the user back to the form with the error displaying
@@ -59,9 +58,8 @@ switch($action){
             $_SESSION['userInfos']['Email'] = $_POST['Email'];
             $_SESSION['userInfos']['DoB'] = $_POST['DoB'];
 
-            //header('Location: index.php?uc=signup&action=show');
-            var_dump("error : " . $_SESSION['error']);
-            //exit();
+            header('Location: index.php?uc=signup&action=show');
+            exit();
         }
 
         break;

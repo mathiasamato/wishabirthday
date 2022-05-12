@@ -4,7 +4,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-unset($_SESSION['error']);
+if($_SESSION['error'] != ""){ //The session that will display the errors
+    $_SESSION['error'] = "";
+}
+
 
 if ($_FILES['ProfilePicture']['name'] == "") { //If there is no file waiting for upload, skip the upload 
 
@@ -22,8 +25,6 @@ if ($_FILES['ProfilePicture']['name'] == "") { //If there is no file waiting for
 $acceptedMimes = array('image/png', 'image/gif', 'image/jpg', 'image/jpeg'); //Array of all accepted accepted mimes
 
 $fileSize = $_FILES['ProfilePicture']['size'];
-
-$_SESSION['error'] = ""; //The error output
 
 if ($fileSize > MAX_FILE_SIZE) { //Check that the uploaded file is under the max authorised file
 
@@ -60,6 +61,6 @@ if ($_SESSION['error'] == "") { //If everything went alright
     }
 } 
 else {
-    //header('Location: index.php?uc=profile&action=showuser&Id=' . $_SESSION['connectedUserId']);
+    header('Location: index.php?uc=profile&action=showuser&Id=' . $_SESSION['connectedUserId']);
     exit;
 }

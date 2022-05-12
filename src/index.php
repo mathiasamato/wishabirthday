@@ -22,6 +22,7 @@ if(!isset($_SESSION['messageLimit'])){ //The session that will display the error
 }
 
 if(!isset($_SESSION['error'])){ //The session that will display the errors
+    
     $_SESSION['error'] = "";
 }
 
@@ -40,7 +41,6 @@ if(!isset($_COOKIE['connectedUserId']) && !isset($_SESSION['connectedUserId'])){
 }
 else if(isset($_COOKIE['connectedUserId']) || isset($_SESSION['connectedUserId'])){
 
-
     if(isset($_COOKIE['connectedUserId'])){
 
         $_SESSION['connectedUserId'] = $_COOKIE['connectedUserId']; //If the connected user is saved in a cookie, save these infos on a session each time the user opens the web page, so it's easier to use them later
@@ -50,16 +50,15 @@ else if(isset($_COOKIE['connectedUserId']) || isset($_SESSION['connectedUserId']
     require 'vue/headerConnected.php';
 
 }
+
 require "assets/constants.inc.php";
 require 'model/database.php'; //Connection to PDO
 require 'model/functions.inc.php'; //All useful functions
 
-
-
 switch($uc){
     case 'home': //Home page
 
-        //unset($_SESSION['error']); //Delete the session so if the user leaves the page login or signup while an error is displayed, it won't show up again when the user returns to one of these pages
+        $_SESSION['error'] = "";
 
         if(!$_SESSION['loadmore']){
             $_SESSION['messageLimit'] = 5;
