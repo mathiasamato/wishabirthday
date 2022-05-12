@@ -15,7 +15,7 @@
         <nav class ="col-9" >
             <ul>
                 <li><a href="index.php?uc=home"><h3>Accueil</h3></a></li>
-                <li><a href="index.php?uc=userProfile&action=show&Id=<?=$_SESSION['connectedUserId']?>"><h3>Profil</h3></a></li>
+                <li><a href="index.php?uc=profile&action=showuser&Id=<?=$_SESSION['connectedUserId']?>"><h3>Profil</h3></a></li>
                 <li><a href="index.php?uc=disconnect"><h3>Déconnexion</h3></a></li>
             </ul>
         </nav>

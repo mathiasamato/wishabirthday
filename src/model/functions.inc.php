@@ -82,7 +82,7 @@ function DisplayUsersWithBirthdayToday(){
     
         for($i = 0; $i < count($users); $i++){ //Generate the HTML to display
 
-            $output .= '<a style="text-decoration: none; color: black;" href="index.php?uc=userProfile&action=show&Id=' . $users[$i]['Id'] . '"><div id="user">';
+            $output .= '<a style="text-decoration: none; color: black;" href="index.php?uc=profile&action=showuser&Id=' . $users[$i]['Id'] . '"><div id="user">';
             $output .= '   <img id="profile_picture" src="assets/medias/pfp/' . $users[$i]['Picture'] . '" alt="image de profil" />';
             $output .= '   <p>' . $users[$i]['Firstname'] . " " . $users[$i]['Lastname'] . '</p>';
             $output .= '</div></a>';
@@ -151,7 +151,7 @@ function GetAllPublicReceivedMessagesForUserById($id){
 
         static $ps = null;
 
-        if($_GET['uc'] == "profile"){ //If it's your own profile, show all your messages regardless of if they are private or public
+        if($_GET['action'] == "showown"){ //If it's your own profile, show all your messages regardless of if they are private or public
             $sql = 'SELECT * FROM `Messages` WHERE `CreatedFor`=:ID LIMIT ' . $_SESSION['messageLimit'];
         }
         else{ //If it's someone else's profile, show all their public messages
@@ -229,7 +229,7 @@ function DisplayMessagesForUser($answer){
         }
 
         $output .= '<div id="message">'; //Generate the HTML to display
-        $output .= '    <a href="index.php?uc=userProfile&action=show&Id=' . $sender['Id'] . '"><img id="profile_picture" src="assets/medias/pfp/' . $sender['Picture'] .  '" alt="image de profil"/></a>';
+        $output .= '    <a href="index.php?uc=profile&action=showuser&Id=' . $sender['Id'] . '"><img id="profile_picture" src="assets/medias/pfp/' . $sender['Picture'] .  '" alt="image de profil"/></a>';
         $output .= '    <div>';
         $output .= '        <p>' . $privateStr . $answer[$i]['Text'] .'</p>';
         $output .= '        <div id="interaction">';
@@ -292,7 +292,7 @@ function GetAndDisplay10LastPublicMessagesSent(){
             }
             
             $output .= '<div id="message">';
-            $output .= '    <a href="index.php?uc=userProfile&action=show&Id=' . $sender['Id'] . '"><img id="profile_picture" src="assets/medias/pfp/' . $sender['Picture'] . '" alt="image de profil" /></a>';
+            $output .= '    <a href="index.php?uc=profile&action=showuser&Id=' . $sender['Id'] . '"><img id="profile_picture" src="assets/medias/pfp/' . $sender['Picture'] . '" alt="image de profil" /></a>';
             $output .= '    <div>';
             $output .= '        <p style="height: 6vh; margin-top: 25px; font-size: 25px;">' . $answer[$i]['Text'] . '</p>';
             $output .= '        <div id="interaction">';

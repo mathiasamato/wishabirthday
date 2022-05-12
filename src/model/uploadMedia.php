@@ -4,16 +4,22 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (!isset($_FILES['ProfilePicture'])) { //If there is no file waiting for upload, acts as a security
+unset($_SESSION['error']);
 
-    require 'model/signupModel.php';
+if ($_FILES['ProfilePicture']['name'] == "") { //If there is no file waiting for upload, skip the upload 
 
-    var_dump("NO IMAGE");
+    if($_GET['uc'] == "signup"){
+
+        require 'model/signupModel.php';
+    }
+    else if($_GET['uc'] == "profile"){
+
+        require 'model/profileEditModel.php';
+    }
 
 }
 
 $acceptedMimes = array('image/png', 'image/gif', 'image/jpg', 'image/jpeg'); //Array of all accepted accepted mimes
-define("MAX_FILE_SIZE", 3 * 1024 * 1024); //Max uploadable file
 
 $fileSize = $_FILES['ProfilePicture']['size'];
 
@@ -39,7 +45,14 @@ if ($_SESSION['error'] == "") { //If everything went alright
 
         echo "Upload effectué avec succès !";
 
-        require 'model/signupModel.php';
+        if($_GET['uc'] == "signup"){
+
+            require 'model/signupModel.php';
+        }
+        else if($_GET['uc'] == "profile"){
+    
+            require 'model/profileEditModel.php';
+        }
 
     } else {
 
@@ -47,6 +60,6 @@ if ($_SESSION['error'] == "") { //If everything went alright
     }
 } 
 else {
-    header('Location: index.php?uc=profile&action=show');
+    //header('Location: index.php?uc=profile&action=showuser&Id=' . $_SESSION['connectedUserId']);
     exit;
 }

@@ -1,5 +1,4 @@
 <?php 
-require "constants.inc.php";
 
 function dbConnect()
 {

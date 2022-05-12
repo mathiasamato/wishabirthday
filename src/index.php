@@ -50,8 +50,8 @@ else if(isset($_COOKIE['connectedUserId']) || isset($_SESSION['connectedUserId']
     require 'vue/headerConnected.php';
 
 }
-
-require 'model/database/database.php'; //Connection to PDO
+require "assets/constants.inc.php";
+require 'model/database.php'; //Connection to PDO
 require 'model/functions.inc.php'; //All useful functions
 
 
@@ -97,39 +97,7 @@ switch($uc){
 
     case 'profile': //profile page
 
-        if(!$_SESSION['loadmore']){
-            $_SESSION['messageLimit'] = 5;
-        }
-        else{
-            $_SESSION['loadmore'] = false;
-        }
-
-        require 'vue/ownProfile.php';
-
-        break;
-
-    case 'userProfile':
-
-        if(!$_SESSION['loadmore']){
-            $_SESSION['messageLimit'] = 5;
-        }
-        else{
-            $_SESSION['loadmore'] = false;
-        }
-
-        $_SESSION["userInfos"] = GetUserById($_GET['Id']);
-
-        if($_GET['Id'] == $_SESSION['connectedUserId']){
-            
-            header("Location: index.php?uc=profile&Id=" . $_GET['Id']);
-            exit();
-
-        }
-        else{
-            require 'vue/userProfile.php';
-        }
-
-        
+        require 'controller/profileController.php';
 
         break;
 

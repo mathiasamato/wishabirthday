@@ -4,7 +4,7 @@
         <input type="submit" value="Modifier les informations" name="edit_profile"/>
     </form>-->
     <p id="profileName"><?= $_SESSION["userInfos"]['Firstname'] . ' ' . $_SESSION["userInfos"]['Lastname'] ?></p>
-    <img id="profile_picture" src="assets/medias/pfp/<?= $_SESSION["userInfos"]['Picture'] ?>" alt="image de profil"/>
+    <a href="index.php?uc=profile&action=edit"><img id="profile_picture" src="assets/medias/pfp/<?= $_SESSION["userInfos"]['Picture'] ?>" alt="image de profil"/></a>
     <article>
         <div id="buttons">
             <button onclick='receivedMessages.setAttribute("hidden", ""); sentMessages.removeAttribute("hidden");'>Messages envoyés</button>
