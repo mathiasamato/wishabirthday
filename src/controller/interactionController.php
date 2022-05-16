@@ -16,7 +16,7 @@ switch($action){
 
     case "like":
 
-        if(!CheckIfUserHasNotLikedTheMessage()){
+        if(!CheckIfUserHasLikedTheMessage()){
             require 'model/addLikeModel.php';
         }
         else{

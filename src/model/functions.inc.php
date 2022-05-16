@@ -1,11 +1,33 @@
 <?php
 //Contains useful functions used across the website
 
+function GetAllUsersCount(){
+    try {
+
+        static $ps = null;
+        $sql = 'SELECT COUNT(*) AS allUsersCount FROM `Users`'; //Get all users in database
+
+        if ($ps == null) {
+            $ps = dbConnect()->prepare($sql);
+        }
+
+        $answer = false;
+
+        if ($ps->execute()) {
+            $answer = $ps->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return $answer[0];
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
 function GetUsersWithBirthdayToday($filterLanguageId){
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND `LanguageId`=:LANGUAGEID LIMIT ' . $_SESSION['messageLimit']; //Get users that celebrate their birthday and that have the language filter matching their language
+        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND `LanguageId`=:LANGUAGEID LIMIT :MESSAGELIMIT'; //Get users that celebrate their birthday and that have the language filter matching their language
 
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);
@@ -14,6 +36,7 @@ function GetUsersWithBirthdayToday($filterLanguageId){
         $answer = false;
 
         $ps->bindParam(':LANGUAGEID', $filterLanguageId, PDO::PARAM_STR); //Language choosen by the user
+        $ps->bindParam(':MESSAGELIMIT', $_SESSION['messageLimit'], PDO::PARAM_INT); //Number of messages to display
 
         if ($ps->execute()) {
             $answer = $ps->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +52,10 @@ function GetUsersWithBirthdayTodayWithFilterName($filterName, $filterLanguageId)
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND (`Lastname` SOUNDS LIKE :FILTERTEXT OR `Firstname` SOUNDS LIKE :FILTERTEXT) AND `LanguageId`=:LANGUAGEID LIMIT ' . $_SESSION['messageLimit'];
+        $sql = 'SELECT * FROM `Users` 
+                WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) 
+                AND (`Lastname` SOUNDS LIKE :FILTERTEXT OR `Firstname` SOUNDS LIKE :FILTERTEXT) 
+                AND `LanguageId`=:LANGUAGEID LIMIT :MESSAGELIMIT';
         //Get users that celebrate their birthday, that have the language filter matching their language and the name in the search bar matching their name
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);
@@ -39,6 +65,7 @@ function GetUsersWithBirthdayTodayWithFilterName($filterName, $filterLanguageId)
 
         $ps->bindParam(':FILTERTEXT', $filterName, PDO::PARAM_STR); //Text entered by the user
         $ps->bindParam(':LANGUAGEID', $filterLanguageId, PDO::PARAM_STR); //Language choosen by the user
+        $ps->bindParam(':MESSAGELIMIT', $_SESSION['messageLimit'], PDO::PARAM_INT); //Number of messages to display
 
         if ($ps->execute()) {
             $answer = $ps->fetchAll(PDO::FETCH_ASSOC);
@@ -88,7 +115,7 @@ function DisplayUsersWithBirthdayToday(){
             $output .= '   <p>' . $users[$i]['Firstname'] . " " . $users[$i]['Lastname'] . '</p>';
             $output .= '</div></a>';
 
-            if($i == $_SESSION['messageLimit']-1){;
+            if($i == $_SESSION['messageLimit']-1){
                 $output .= '<a href="index.php?uc=interaction&action=loadmore" style="text-align: center; text-decoration: none; color: gray;"><p>Charger plus</p></a>';
             }
         }
@@ -129,12 +156,16 @@ function GetRandomUser(){
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Users` ORDER BY RAND() LIMIT 1';
+        $sql = 'SELECT * FROM `Users` WHERE `Id` NOT LIKE :IDCONNECTEDUSER ORDER BY RAND() LIMIT 1';
 
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);
         }
         $answer = false;
+
+        //$_SESSION['connectedUserId'];
+
+        $ps->bindParam(':IDCONNECTEDUSER', $_SESSION['connectedUserId'], PDO::PARAM_INT);
 
         if ($ps->execute()) {
             $answer = $ps->fetchAll(PDO::FETCH_ASSOC);
@@ -315,7 +346,7 @@ function GetAndDisplay10LastPublicMessagesSent(){
 
         }
         
-        
+
         return $output;
 
     } catch (PDOException $e) {
@@ -348,7 +379,7 @@ function GetLikesCountForMessage($messageId){
     }
 }
 
-function CheckIfUserHasNotLikedTheMessage(){
+function CheckIfUserHasLikedTheMessage(){
     try {
 
         static $ps = null;
