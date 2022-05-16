@@ -1,3 +1,4 @@
+<!-- The profile of any user -->
 <title><?= GetUserById($_GET['Id'])['Firstname'] . ' ' . GetUserById($_GET['Id'])['Lastname'] ?> | WishABirthday</title>
 <section id="profile">
     <p id="profileName"><?= $_SESSION["userInfos"]['Firstname'] . ' ' . $_SESSION["userInfos"]['Lastname'] ?></p>

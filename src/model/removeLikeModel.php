@@ -1,4 +1,6 @@
 <?php
+//addLikeModel.php removes a like from an user to a message
+
 try {
 
     static $ps = null;

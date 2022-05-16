@@ -1,4 +1,6 @@
 <?php 
+//profileController.php manages everything regarding the profile (our own profile, user profile, profile edit)
+
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 
 if(!isset($_SESSION['newUserInfos'])){

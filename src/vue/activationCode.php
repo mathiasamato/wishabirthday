@@ -1,3 +1,4 @@
+<!-- activationCode.php display the text input to enter the activation code received by email -->
 <title>Créer un compte | WishABirthday</title>
 <section>
    <div id="form" class="col-12">

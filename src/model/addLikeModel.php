@@ -1,4 +1,5 @@
 <?php
+//addLikeModel.php adds a like from an user to a message
 try {
 
     static $ps = null;

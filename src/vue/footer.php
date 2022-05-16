@@ -1,5 +1,5 @@
 <footer>
-        <p>Copyright 2022</p>
+        <p>©CFPT 2022</p>
 </footer>
 
 </body>

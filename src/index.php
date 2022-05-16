@@ -7,6 +7,8 @@ Name of the project : Wish A Birthday
 Description : Wish A Birthday is a social media aimed at wishing people happy birthday. You can choose whose to send the message or send the message to a random user having their birthday that same day.
 */
 
+//index.php is the brain of the website, every redirection goes through this file, it checks that a user is connected or not, creates all the necessary sessions and require all the necessary files
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

@@ -1,4 +1,5 @@
 <?php
+//Contains useful functions used across the website
 
 function GetUsersWithBirthdayToday($filterLanguageId){
     try {

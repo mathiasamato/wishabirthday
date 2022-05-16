@@ -1,6 +1,6 @@
 <?php
-
-//Code taken from https://github.com/PHPMailer/PHPMailer
+//sendEmail.php uses PHPMailer to build and send an email to the new user with the activation code and a link to the page used to enter the code
+//All the code is taken from https://github.com/PHPMailer/PHPMailer
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

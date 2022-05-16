@@ -1,3 +1,4 @@
+<!-- The profile of the connected user -->
 <title>Profil | WishABirthday</title>
 <section id="profile">
     <p id="profileName"><?= $_SESSION["userInfos"]['Firstname'] . ' ' . $_SESSION["userInfos"]['Lastname'] ?></p>

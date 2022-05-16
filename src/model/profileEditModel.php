@@ -1,4 +1,6 @@
 <?php 
+//profileEditModel.php edits an user profile according to what the user entered
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

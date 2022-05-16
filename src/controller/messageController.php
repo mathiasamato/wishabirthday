@@ -1,4 +1,5 @@
 <?php 
+//loginController.php manages the sending of messages
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 

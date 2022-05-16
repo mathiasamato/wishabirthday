@@ -1,4 +1,6 @@
 <?php 
+//messageRandomModel.php sends a message entered by an user, to a random person on the website
+
 try {
 
     static $ps = null;

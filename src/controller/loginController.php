@@ -1,4 +1,6 @@
 <?php 
+//loginController.php manages everything regarding the log in process
+
 $action = filter_input(INPUT_GET, "action"); //What is the thing to do
 
 $action = !isset($_GET['action']) ? "show" : $_GET['action']; //The thing to display to the user

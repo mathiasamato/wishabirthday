@@ -1,4 +1,5 @@
 <?php 
+//activationController.php manages everything regarding the activation process
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 

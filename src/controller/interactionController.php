@@ -1,4 +1,5 @@
 <?php 
+//interactionController.php manages all interactions that the user can do on the website
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 

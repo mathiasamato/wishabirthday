@@ -1,4 +1,5 @@
 <?php 
+//loginController.php manages everything regarding the sign up process
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 

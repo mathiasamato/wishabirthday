@@ -1,4 +1,6 @@
 <?php 
+//loginModel.php will look for the user using the informations entered by the user on the log in page, and creates the cookie or session depending on the user's choice
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -31,7 +33,7 @@ try {
             exit();
         }
 
-        if(isset($_POST['rememberMeCheckbox'])){ //If the user clicked on "remember me", create a cookie that lasts 30 days, otherwise it just creates a cookie
+        if(isset($_POST['rememberMeCheckbox'])){ //If the user clicked on "remember me", create a cookie that lasts 30 days, otherwise it just creates a session
             setcookie("connectedUserId", $answer[0]["Id"], time() + (86400 * DAYS_UNTIL_COOKIE_EXPIRES), "/"); //86400 seconds is 1 day, it allows to put the real number of days without having to calculate
         }
         else{

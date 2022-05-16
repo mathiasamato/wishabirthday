@@ -1,4 +1,5 @@
 <?php
+// activationCodeModel.php will update the activation code in the databse to 0, which means that 
 try {
 
     static $ps = null;

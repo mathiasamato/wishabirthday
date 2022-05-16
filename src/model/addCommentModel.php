@@ -1,4 +1,5 @@
 <?php
+// addCommentModel.php adds a comment writtent by an user under a message
 try {
 
     static $ps = null;

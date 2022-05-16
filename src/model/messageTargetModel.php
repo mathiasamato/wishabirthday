@@ -1,4 +1,6 @@
 <?php 
+//messageTargetModel.php sends a message entered by an user, to another choosen user
+
 try {
 
     static $ps = null;
