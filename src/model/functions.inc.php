@@ -297,7 +297,7 @@ function GetAndDisplay10LastPublicMessagesSent(){
             $output .= '    <div>';
             $output .= '        <p style="height: 6vh; margin-top: 25px; font-size: 25px;">' . $answer[$i]['Text'] . '</p>';
             $output .= '        <div id="interaction">';
-            $output .= '            <form method="POST" action="index.php?uc=interaction&action=like&messageid=' . $answer[$i]['Id'] . '">';
+            $output .= '            <form method="POST" action="index.php?uc=interaction&action=like&messageid=' . $answer[$i]['Id'] . '&likedby=' . $_SESSION['connectedUserId'] .'">';
             $output .= '                <input type="submit" name="addLike" id="sendLike" /><img id="likeButton" src="assets/medias/like.png" alt="image du bouton like"/>';
             $output .= '                <p>' . $likesCount . '</p>';
             $output .= '            </form>';
