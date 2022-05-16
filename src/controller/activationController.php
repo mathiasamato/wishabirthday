@@ -19,7 +19,7 @@ switch($action){
             require 'model/activationCodeModel.php';
         }
         else{
-            $_SESSION['error']['message'] = "Code incorrect";
+            $_SESSION['error'] = "Code incorrect";
             
             header('Location: index.php?uc=activate&action=show');
             exit;
