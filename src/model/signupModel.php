@@ -8,8 +8,14 @@ error_reporting(E_ALL);
 try {
 
     static $ps = null;
-    $sql = 'INSERT INTO `Users` (`Lastname`, `Firstname`, `Email`, `DoB`, `Password`, `LanguageId`, `ActivationCode`, `Picture`)';
-    $sql .= 'VALUES(:LASTNAME, :FIRSTNAME, :EMAIL, :DATEBIRTH, :PWD, :LANGUAGE, :CODE, :PICTURE);';
+    if(isset($_SESSION['FileNameWithRandomString'])){ //Check if the file exists
+        $sql = 'INSERT INTO `Users` (`Lastname`, `Firstname`, `Email`, `DoB`, `Password`, `LanguageId`, `ActivationCode`, `Picture`)';
+        $sql .= 'VALUES(:LASTNAME, :FIRSTNAME, :EMAIL, :DATEBIRTH, :PWD, :LANGUAGE, :CODE, :PICTURE);';
+    }
+    else{
+        $sql = 'INSERT INTO `Users` (`Lastname`, `Firstname`, `Email`, `DoB`, `Password`, `LanguageId`, `ActivationCode`)';
+        $sql .= 'VALUES(:LASTNAME, :FIRSTNAME, :EMAIL, :DATEBIRTH, :PWD, :LANGUAGE, :CODE);';
+    }
 
     if ($ps == null) { //if the ps variable is null, it means that the prepare statement has not been set yet
         $ps = dbConnect()->prepare($sql); //prepare the sql query
@@ -25,9 +31,14 @@ try {
     $ps->bindParam(':EMAIL', $_POST['Email'], PDO::PARAM_STR);
     $ps->bindParam(':DATEBIRTH', $_POST['DoB']); 
     $ps->bindParam(':PWD', $pwdsha1, PDO::PARAM_STR);
-    $ps->bindParam(':LANGUAGE', $_POST['Language']);
+    $ps->bindParam(':LANGUAGE', $_POST['LanguageSelect']);
     $ps->bindParam(':CODE', $_SESSION['ActivationCode']);
-    $ps->bindParam(':PICTURE', $_SESSION['FileNameWithRandomString']);
+
+    if(isset($_SESSION['FileNameWithRandomString'])){ //Check if the file exists
+       
+        $ps->bindParam(':PICTURE', $_SESSION['FileNameWithRandomString'], PDO::PARAM_STR);
+
+    }
 
     if ($ps->execute()){ //Execute the prepare statement and send a validation email
         require 'sendEmail.php';

@@ -27,7 +27,10 @@ function GetUsersWithBirthdayToday($filterLanguageId){
     try {
 
         static $ps = null;
-        $sql = 'SELECT * FROM `Users` WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) AND `LanguageId`=:LANGUAGEID LIMIT :MESSAGELIMIT'; //Get users that celebrate their birthday and that have the language filter matching their language
+        $sql = 'SELECT * FROM `Users` 
+                WHERE MONTH(`DoB`)=MONTH(CURRENT_DATE()) AND DAY(`DoB`)=DAY(CURRENT_DATE()) 
+                AND `LanguageId`=:LANGUAGEID LIMIT :MESSAGELIMIT'; 
+                //Get users that celebrate their birthday and that have the language filter matching their language
 
         if ($ps == null) {
             $ps = dbConnect()->prepare($sql);
@@ -49,7 +52,7 @@ function GetUsersWithBirthdayToday($filterLanguageId){
 }
 
 function GetUsersWithBirthdayTodayWithFilterName($filterName, $filterLanguageId){
-    try {
+    try { 
 
         static $ps = null;
         $sql = 'SELECT * FROM `Users` 
@@ -265,7 +268,7 @@ function DisplayMessagesForUser($answer){
         $output .= '    <div>';
         $output .= '        <p>' . $privateStr . $answer[$i]['Text'] .'</p>';
         $output .= '        <div id="interaction">';
-        $output .= '            <form method="POST" action="index.php?uc=interaction&action=like&messageid=' . $answer[$i]['Id'] . '">';
+        $output .= '            <form method="POST" action="index.php?uc=interaction&action=like&messageid=' . $answer[$i]['Id'] . '&likedby=' . $_SESSION['connectedUserId'] .'">';
         $output .= '                <input type="submit" name="addLike" id="sendLike" /><img id="likeButton" src="assets/medias/like.png" alt="image du bouton like"/>';
         $output .= '                <p style="font-size: 15px;">' . $likesCount . '</p>';
         $output .= '            </form>';

@@ -27,7 +27,7 @@ try {
     if($answer){
 
         if($answer[0]["ActivationCode"] != 0){ //If the user is not yet verified, write an error message
-            $_SESSION['error'] = "Vous n'avez pas activé votre compte ! Veuillez vérifier vos mails.";
+            $_SESSION['error']['login'] = "Vous n'avez pas activé votre compte ! Veuillez vérifier vos mails.";
 
             header("Location: index.php?uc=login&action=show");
             exit();
@@ -46,7 +46,7 @@ try {
     }
     else{ //If no user was found, write an error message
 
-        $_SESSION['error'] = "Votre email ou mot de passe est incorrect, veuillez réessayer.";
+        $_SESSION['error']['login'] = "Votre email ou mot de passe est incorrect, veuillez réessayer.";
 
         header("Location: index.php?uc=login&action=show");
         exit();

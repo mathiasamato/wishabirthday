@@ -1,5 +1,5 @@
 <?php
-// activationCodeModel.php will update the activation code in the databse to 0, which means that 
+// activationCodeModel.php will update the activation code in the database to 0, which means that the account is verified
 try {
 
     static $ps = null;

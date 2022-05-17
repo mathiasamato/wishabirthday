@@ -3,16 +3,24 @@
 
 $action= filter_input(INPUT_GET, "action"); //What is the thing to do
 
-if($_SESSION['error'] != ""){ //The session that will display the errors
-    $_SESSION['error'] = "";
-}
-
 if(!isset($_SESSION['userInfos'])){
     $_SESSION['userInfos'] = [];
 }
 
+if(!isset($_SESSION['error'])){ //The session that will display the errors
+    
+    $_SESSION['error'] = [
+        'signup'=>"",
+        'login'=>"",
+        'edit'=>"",
+        'activation'=>""
+    ];
+}
+
 switch($action){
     case 'show': //Display the form
+
+        $_SESSION['error']['login'] = "";
 
         if(!isset($_SESSION['userInfos']['Lastname'])){ //Allows to make a sticky form
             $_SESSION['userInfos']['Lastname'] = "";
@@ -35,18 +43,21 @@ switch($action){
 
     case 'send': //Verify the data and then send it to the database
 
+        $_SESSION['error']['signup'] = "";
+        $_SESSION['error']['edit'] = "";
+
         if($_POST['Password'] != $_POST['ConfirmPassword']){ //If the password and the confirmation password are differents
 
-            $_SESSION['error'] = "Les mots de passe ne correspondent pas.";
+            $_SESSION['error']['signup'] = "Les mots de passe ne correspondent pas.";
 
         }
         else if(strlen($_POST['Password']) < 6){ //If the length of the password is inferior to 6
 
-            $_SESSION['error'] = "Le mot de passe doit faire au moins 6 caractères";
+            $_SESSION['error']['signup'] = "Le mot de passe doit faire au moins 6 caractères";
 
         }
 
-        if($_SESSION['error'] == ""){ //If there's no error
+        if($_SESSION['error']['signup'] == ""){ //If there's no error
 
             $_SESSION['ActivationCode'] = rand(100000, 999999);
 

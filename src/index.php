@@ -25,7 +25,18 @@ if(!isset($_SESSION['messageLimit'])){ //The session that will display the error
 
 if(!isset($_SESSION['error'])){ //The session that will display the errors
     
-    $_SESSION['error'] = "";
+    $_SESSION['error'] = [
+        'signup'=>"",
+        'login'=>"",
+        'edit'=>"",
+        'activation'=>""
+    ];
+}
+
+if(!isset($_POST["languageSelect"]) && !isset($_POST["searchBar"]) && !isset($_POST["newLanguageSelect"])){
+    $_POST["languageSelect"] = 1;
+    $_POST["searchBar"] = "";
+    $_POST["newLanguageSelect"] = 1;
 }
 
 $uc = !isset($_GET['uc']) ? "home" : $_GET['uc']; //The thing to display to the user
@@ -60,18 +71,18 @@ require 'model/functions.inc.php'; //All useful functions
 switch($uc){
     case 'home': //Home page
 
-        $_SESSION['error'] = "";
+        $_SESSION['error'] = [
+            'signup'=>"",
+            'login'=>"",
+            'edit'=>"",
+            'activation'=>""
+        ];
 
         if(!$_SESSION['loadmore']){
             $_SESSION['messageLimit'] = 5;
         }
         else{
             $_SESSION['loadmore'] = false;
-        }
-
-        if(!isset($_POST["languageSelect"]) && !isset($_POST["searchBar"])){
-            $_POST["languageSelect"] = 1;
-            $_POST["searchBar"] = "";
         }
 
         require 'vue/home.php';
@@ -119,6 +130,7 @@ switch($uc){
         session_unset();
 
         setcookie("connectedUserId", "", time() - 3600, "/");
+        setcookie("ActivationCode", "", time() - 3600, "/");
 
         header("Location: index.php?uc=home");
         exit();

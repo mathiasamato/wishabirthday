@@ -11,8 +11,14 @@ if(!isset($_SESSION['userInfos'])){
     $_SESSION['userInfos'] = [];
 }
 
-if($_SESSION['error'] != ""){ //The session that will display the errors
-    $_SESSION['error'] = "";
+if(!isset($_SESSION['error'])){ //The session that will display the errors
+    
+    $_SESSION['error'] = [
+        'signup'=>"",
+        'login'=>"",
+        'edit'=>"",
+        'activation'=>""
+    ];
 }
 
 if(!isset($_SESSION['connectedUserId'])){ //Checks if the user is connected
@@ -29,6 +35,8 @@ else{
 
 switch($action){
     case 'showown':
+
+        $_SESSION['error']['edit'] = "";
 
         unset($_SESSION['newUserInfos']);
 
@@ -68,6 +76,8 @@ switch($action){
 
     case 'edit':
 
+        $_SESSION['error']['edit'] = "";
+
         require 'vue/profileEdit.php';
 
         break;
@@ -89,27 +99,27 @@ switch($action){
 
                     if($_POST['newPassword'] != $_POST['newConfirmPassword']){ //If the new password and the confirmation password are differents
 
-                        $_SESSION['error'] = "Les mots de passe ne correspondent pas";
+                        $_SESSION['error']['edit'] = "Les mots de passe ne correspondent pas";
 
                     }
                     else if(strlen($_POST['newPassword']) < 6){ //If the length of the new password is inferior to 6
 
-                        $_SESSION['error'] = "Le mot de passe doit faire au moins 6 caractères";
+                        $_SESSION['error']['edit'] = "Le mot de passe doit faire au moins 6 caractères";
 
                     }
                 }
             }
             else{
-                $_SESSION['error'] = "Votre mot de passe actuel est incorrect";
+                $_SESSION['error']['edit'] = "Votre mot de passe actuel est incorrect";
 
             }
         }
         else{
 
-            $_SESSION['error'] = "Veuillez indiquer votre mot de passe actuel pour sauvegarder les nouvelles informations";
+            $_SESSION['error']['edit'] = "Veuillez indiquer votre mot de passe actuel pour sauvegarder les nouvelles informations";
         }
 
-        if($_SESSION['error'] == ""){ //If there's no error
+        if($_SESSION['error']['edit'] == ""){ //If there's no error
 
             require 'model/uploadMedia.php';
 
