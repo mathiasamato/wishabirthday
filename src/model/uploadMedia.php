@@ -76,11 +76,11 @@ if($_GET['uc'] == "signup"){ //if the user has set a profile picture during the 
 }
 else if($_GET['uc'] == "profile"){ //if the user has set a profile picture during the edit of the user's profile
 
-    $_SESSION['userInfos']['Lastname'] = $_POST['Lastname']; //Save informations to make the form sticky
-    $_SESSION['userInfos']['Firstname'] = $_POST['Firstname'];
-    $_SESSION['userInfos']['Email'] = $_POST['Email'];
-    $_SESSION['userInfos']['DoB'] = $_POST['DoB'];
+    $_SESSION['userInfos']['Lastname'] = $_POST['newLastname']; //Save informations to make the form sticky
+    $_SESSION['userInfos']['Firstname'] = $_POST['newFirstname'];
+    $_SESSION['userInfos']['Email'] = $_POST['newEmail'];
+    $_SESSION['userInfos']['DoB'] = $_POST['newDateBirth'];
 
-    header('Location: index.php?uc=profile&action=edit');
+    //header('Location: index.php?uc=profile&action=edit');
     exit;
 }

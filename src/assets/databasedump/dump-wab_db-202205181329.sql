@@ -29,7 +29,7 @@ CREATE TABLE `Comments` (
   `Text` varchar(255) NOT NULL,
   `MessageId` bigint(20) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `Comments` (
 
 LOCK TABLES `Comments` WRITE;
 /*!40000 ALTER TABLE `Comments` DISABLE KEYS */;
-INSERT INTO `Comments` VALUES (1,'2022-05-10 12:57:11',8,'Salut toi',25),(2,'2022-05-10 12:57:19',9,'Salut toii',18),(3,'2022-05-10 15:03:31',8,'hhhhh',25),(4,'2022-05-10 15:09:28',8,'ssss',25),(5,'2022-05-10 15:09:29',8,'fsdfsdf',25),(6,'2022-05-10 15:09:31',8,'d',25),(7,'2022-05-10 15:09:32',8,'aaaaa',25),(8,'2022-05-10 15:09:34',8,'aaaaaaa',25),(9,'2022-05-10 15:09:35',8,'aaaaaa',25),(10,'2022-05-10 16:26:12',8,'fffffff',25),(11,'2022-05-10 16:26:16',8,'aaaa',25),(12,'2022-05-11 08:22:47',8,'aaaa',25),(13,'2022-05-11 10:34:51',8,'sss',17),(14,'2022-05-16 08:26:33',18,'nan mais oh',28),(15,'2022-05-16 08:26:39',18,'????',27),(16,'2022-05-16 09:06:40',18,'Merci !',30);
+INSERT INTO `Comments` VALUES (17,'2022-05-18 08:04:38',29,'dsadasd',39),(18,'2022-05-18 13:22:21',31,'Tu as une jolie image de profil !',39);
 /*!40000 ALTER TABLE `Comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ CREATE TABLE `Likes` (
   `LikedOn` datetime NOT NULL DEFAULT current_timestamp(),
   `LikedBy` bigint(20) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `Likes` (
 
 LOCK TABLES `Likes` WRITE;
 /*!40000 ALTER TABLE `Likes` DISABLE KEYS */;
-INSERT INTO `Likes` VALUES (134,15,'2022-05-11 10:34:57',8),(143,17,'2022-05-16 09:05:48',8),(154,30,'2022-05-16 09:19:27',18),(159,30,'2022-05-16 14:10:25',8),(161,36,'2022-05-16 14:47:36',8);
+INSERT INTO `Likes` VALUES (178,39,'2022-05-18 13:22:22',31),(180,39,'2022-05-18 13:28:15',28),(181,40,'2022-05-18 13:28:27',28);
 /*!40000 ALTER TABLE `Likes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +108,7 @@ CREATE TABLE `Messages` (
   `IsPrivate` tinyint(1) NOT NULL DEFAULT 0,
   `LanguageId` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `Messages` (
 
 LOCK TABLES `Messages` WRITE;
 /*!40000 ALTER TABLE `Messages` DISABLE KEYS */;
-INSERT INTO `Messages` VALUES (15,'2022-05-05 09:25:13',8,9,'Test',0,1),(16,'2022-05-05 09:26:05',8,10,'cgfgfgfgj',0,1),(17,'2022-05-05 09:26:29',9,8,'sdddddddd',0,2),(18,'2022-05-05 09:26:31',8,9,'ghfjghmjghjgujhghjtghj',0,2),(19,'2022-05-05 11:07:13',8,10,'rttrtrrrrtrt',1,1),(20,'2022-05-05 11:07:24',8,10,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa',0,1),(21,'2022-05-05 11:29:16',8,10,'ddrgfdfgdfgdfgdfgdgfdgfdfggdfdfgdfgdfg',0,1),(22,'2022-05-05 11:29:41',8,9,'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss',1,1),(23,'2022-05-05 15:27:42',9,10,'Salut comment tu vas',0,2),(24,'2022-05-05 16:29:54',8,10,'test 123',1,1),(25,'2022-05-09 08:38:25',8,10,'Il y a pas le feu au lacIl y a pas le feu au lacIl y a pas le feu au lacIl y a pas le feu au lac',0,1),(26,'2022-05-11 08:24:49',8,9,'fdgsfdsdffsd',0,1),(27,'2022-05-11 08:25:56',8,10,'sadsaasdasdsda',0,1),(28,'2022-05-16 08:26:09',18,9,'Celui qui voit mon message est beau',0,1),(29,'2022-05-16 08:27:10',18,10,'Salut inconnu',1,1),(30,'2022-05-16 09:05:09',8,10,'Celui qui voit mon message est beau',0,1),(35,'2022-05-16 14:47:03',8,18,'Salut privé',1,1),(36,'2022-05-16 14:47:10',8,18,'Salut public',0,1);
+INSERT INTO `Messages` VALUES (39,'2022-05-18 08:04:30',29,28,'Salut',0,1),(40,'2022-05-18 13:22:09',31,29,'Bon anniversaire Valery !',0,1),(41,'2022-05-18 13:26:27',28,31,'Qui veut venir observer les avions avec moi demain ?',0,1),(42,'2022-05-18 13:28:02',28,29,'Qui recevra ce message ?',1,1);
 /*!40000 ALTER TABLE `Messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ CREATE TABLE `Users` (
   `ActivationCode` varchar(25) NOT NULL DEFAULT '0',
   `Lastname` varchar(100) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (8,'2022-05-04 08:30:06','Mathias','mathiasamato8@gmail.com','2021-05-16','7b5e89a286826309b24b0d88ad94d16a725ce446',1,'loveless.jpg','0','Amato'),(9,'2022-05-05 08:04:13','Mathiasssss','mathias.amt@eduge.ch','2021-05-17','7b5e89a286826309b24b0d88ad94d16a725ce446',1,'image.jpg','0','Amato'),(10,'2022-05-05 08:14:43','Mathiasssss','adibou@gmail.com','2021-05-16','7b5e89a286826309b24b0d88ad94d16a725ce446',1,'image.jpg','0','Amato'),(11,'2022-05-05 08:14:52','Mathiasssss','qwertz@gmail.com','2021-05-16','7b5e89a286826309b24b0d88ad94d16a725ce446',1,'image.jpg','0','Amato'),(18,'2022-05-16 08:23:52','Valery','nalote2193@dufeed.com','2021-05-16','fd998794b7f85a1a997e5e526d97df9c491d105a',1,'6281ee6e3ba17-6etapes.png','0','Dias'),(19,'2022-05-16 14:50:33','Bava','bava@gmail.com','2021-05-17','fd998794b7f85a1a997e5e526d97df9c491d105a',1,'image.jpg','0','Dimitrei');
+INSERT INTO `Users` VALUES (28,'2022-05-18 08:00:24','Mathias','mathiasamato9@gmail.com','2000-01-11','7b5e89a286826309b24b0d88ad94d16a725ce446',1,'6284d73f277b1-hb-jhg-swiss-airbus-a330-343_PlanespottersNet_245579_59e8668ab5_o.jpg','0','Amato'),(29,'2022-05-18 08:03:44','Valery','nalote2193@dufeed.com','2002-05-18','0c0a69a62013d473410352dcb764d94c68567471',1,'62849db58da6e-472537.jpg','0','Dias'),(31,'2022-05-18 13:18:59','Alex','mathias.amt@eduge.ch','1999-06-02','aae219af1ca7f99412f5b4c4aaea908c1e534c0b',1,'6284d623d4940-jack_london.png','0','Clifford');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-16 16:35:07
+-- Dump completed on 2022-05-18 13:29:29

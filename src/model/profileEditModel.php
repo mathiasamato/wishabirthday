@@ -33,7 +33,7 @@ try {
     $ps->bindParam(':FIRSTNAME', $_POST['newFirstname'], PDO::PARAM_STR); //Complete the prepare statement will all the new informations (or the current ones if untouched)
     $ps->bindParam(':LASTNAME', $_POST['newLastname'], PDO::PARAM_STR);
     $ps->bindParam(':BIRTHDATE', $_POST['newDateBirth']);
-    $ps->bindParam(':LANGUAGEID', $_POST['NewLanguageSelect'], PDO::PARAM_INT);
+    $ps->bindParam(':LANGUAGEID', $_POST['newLanguageSelect'], PDO::PARAM_INT);
     $ps->bindParam(':ID', $_SESSION['connectedUserId'], PDO::PARAM_INT);
 
     if(isset($_SESSION['FileNameWithRandomString'])){ //Check if the file exists

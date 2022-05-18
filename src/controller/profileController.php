@@ -24,7 +24,7 @@ if(!isset($_SESSION['error'])){ //The session that will display the errors
 if(!isset($_SESSION['connectedUserId'])){ //Checks if the user is connected
 
     header("Location: index.php?uc=404");
-    exit();
+    exit;
 
 }
 else{
@@ -40,7 +40,7 @@ switch($action){
 
         unset($_SESSION['newUserInfos']);
 
-        if(!$_SESSION['loadmore']){
+        if(!$_SESSION['loadmore']){ //If the page is refreshed, set back the number of messgaes to 5
             $_SESSION['messageLimit'] = 5;
         }
         else{
@@ -53,7 +53,7 @@ switch($action){
 
     case 'showuser':
 
-        if(!$_SESSION['loadmore']){
+        if(!$_SESSION['loadmore']){  //If the page is refreshed, set back the number of messgaes to 5
             $_SESSION['messageLimit'] = 5;
         }
         else{
@@ -62,10 +62,10 @@ switch($action){
 
         $_SESSION["userInfos"] = GetUserById($_GET['Id']);
 
-        if($_GET['Id'] == $_SESSION['connectedUserId']){
+        if($_GET['Id'] == $_SESSION['connectedUserId']){ //If the profile to show is the connected user's profile
             
             header("Location: index.php?uc=profile&action=showown&Id=" . $_GET['Id']);
-            exit();
+            exit;
 
         }
         else{
@@ -76,13 +76,13 @@ switch($action){
 
     case 'edit':
 
-        $_SESSION['error']['edit'] = "";
-
         require 'vue/profileEdit.php';
 
         break;
     
     case 'editconfirm':
+
+        $_SESSION['error']['edit'] = "";
 
         $pwdIsModified = false;
 
