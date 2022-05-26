@@ -1,8 +1,9 @@
 # WishABirthday
 
-WishABirthday.com est un site web de type réseau social qui offre à ses utilisateurs la possibilité de souhaiter un joyeux anniversaire à des inconnus dans le monde de manière ciblée ou aléatoire. Voici les fonctionnalités prévues :
-●	Création et connexion à un compte
-○	Un utilisateur peut créer un compte sur le site web, le vérifier à l’aide d’un email de confirmation contenant un code d’activation, puis s’y connecter. Chaque utilisateur doit être connecté pour accéder à l'entièreté du site.
+WishABirthday.com est un site web de type réseau social qui offre à ses utilisateurs la possibilité de souhaiter un joyeux anniversaire à des inconnus dans le monde de manière ciblée ou aléatoire. Voici les fonctionnalités principales :
+
+###	Création et connexion à un compte
+Un utilisateur peut créer un compte sur le site web, le vérifier à l’aide d’un email de confirmation contenant un code d’activation, puis s’y connecter. Chaque utilisateur doit être connecté pour accéder à l'entièreté du site.
 
 ### Modification d’un compte
 Un utilisateur peut à tout moment modifier toutes ses informations de compte, excepté l’email.
